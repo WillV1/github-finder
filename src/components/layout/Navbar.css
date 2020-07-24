@@ -1,0 +1,13 @@
+p {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+    padding: 20px;
+}
+
+.icon {
+    margin-bottom: 15px;
+    color: white
+};
