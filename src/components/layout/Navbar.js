@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Proptypes from 'prop-types';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -7,22 +7,13 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Navbar.css';
 
-class Navigation extends Component {
-    static defaultProps = {
-        title: 'Github Finder',
-        icon: {faGithub}
-    };
-
-    static propTypes = {
-        title: Proptypes.string.isRequired,
-        icon: Proptypes.object.isRequired
-    }
+const Navigation = (props) => {
     
-    render() {
+    
         return (
             <Navbar className="navbar" bg="danger" expand="lg">
                 <FontAwesomeIcon className="icon" icon={faGithub} size="2x" />
-                <Navbar.Brand href="#home"><p>{this.props.title}</p></Navbar.Brand>
+                <Navbar.Brand href="#home"><p>{props.title}</p></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
@@ -32,8 +23,16 @@ class Navigation extends Component {
                 </Navbar.Collapse>
             </Navbar >
         )
+}
 
-    }
+Navigation.defaultProps = {
+    title: 'Github Finder',
+    icon: {faGithub}
+};
+
+Navigation.propTypes = {
+    title: Proptypes.string.isRequired,
+    icon: Proptypes.object.isRequired
 }
 
 export default Navigation;
