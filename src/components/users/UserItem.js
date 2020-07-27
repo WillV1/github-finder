@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImageCard from './ImageCard';
 
-const UserItem = ({user: {login, avatar_url, html_url}}) => {
+
+const UserItem = ({ user: { login, avatar_url, html_url } }) => {
 
 
   return (
@@ -14,6 +15,7 @@ const UserItem = ({user: {login, avatar_url, html_url}}) => {
 
       />
     </div>
+
   )
 
 }
