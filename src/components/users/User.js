@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Spinner from '../layout/Spinner';
 import UserCard from './UserCard';
 import Repos from '../repos/Repos';
@@ -12,27 +12,15 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-class User extends Component {
+const User = ( {user, loading, getUser, getUserRepos, repos, match }) => {
 
-    componentDidMount() {
-        this.props.getUser(this.props.match.params.login);
-        this.props.getUserRepos(this.props.match.params.login);
-    }
+    useEffect(() => {
+        getUser(match.params.login);
+        getUserRepos(match.params.login);
+        //eslint-disable-next-line
+    }, []);
 
-    static propTypes = {
-        loading: PropTypes.bool,
-        user: PropTypes.object.isRequired,
-        repos: PropTypes.array.isRequired,
-        getUser: PropTypes.func.isRequired,
-        getUserRepos: PropTypes.func.isRequired
-    }
-
-    render() {
-        const { name, avatar_url, location, bio, blog, login, html_url, company, hireable } = this.props.user;
-
-        const { loading } = this.props;
-
-        const {repos} = this.props;
+        const { name, avatar_url, location, bio, blog, login, html_url, company, hireable } = user;
 
         if (loading) return <Spinner />
 
@@ -62,7 +50,14 @@ class User extends Component {
             </Fragment>
 
         )
-    }
+}
+
+User.propTypes = {
+    loading: PropTypes.bool,
+    user: PropTypes.object.isRequired,
+    repos: PropTypes.array.isRequired,
+    getUser: PropTypes.func.isRequired,
+    getUserRepos: PropTypes.func.isRequired
 }
 
 export default User;
