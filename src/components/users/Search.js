@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -8,42 +8,31 @@ import Button from 'react-bootstrap/Button';
 import './Search.css';
 import Proptypes from 'prop-types';
 
-class Search extends Component {
-    state = {
-        text: ''
-    }
+const Search =( searchUsers, showClear, clearUsers, setAlert) => {
+    const [text, setText] = useState('');
 
-    static propTypes = {
-        searchUsers: Proptypes.func.isRequired,
-        clearUsers: Proptypes.func.isRequired,
-        showClear: Proptypes.bool.isRequired,
-        setAlert: Proptypes.func.isRequired
-    }
-
-    onSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        if (this.state.text === '') {
-            this.props.setAlert('Please enter name', 'light')
+        if (text === '') {
+            setAlert('Please enter name', 'light')
         } else {
-            this.props.searchUsers(this.state.text);
-            this.setState({ text: '' });
+            searchUsers(text);
+            setText('');
         }
     }
 
-    onChange = (e) => this.setState({ [e.target.name]: e.target.value })
+    const onChange = (e) => setText(e.target.value )
 
 
-    render() {
-        const { showClear, clearUsers } = this.props;
         return (
             <div>
                 <Container>
                     <Row>
                         <Col md={4}></Col>
                         <Col md={4}>
-                            <Form onSubmit={this.onSubmit}>
+                            <Form onSubmit={onSubmit}>
                                 <Form.Control id="inline" type="text" name="text"
-                                    placeholder="Search Users..." value={this.state.text} onChange={this.onChange} />
+                                    placeholder="Search Users..." value={text} onChange={onChange} />
                                 <Button id="search-button" variant="dark" type="submit" block>Search</Button>
                                 {showClear && <Button id="clear-button" variant="light" type="submit" onClick={clearUsers} block>Clear</Button>}
                             </Form>
@@ -53,7 +42,13 @@ class Search extends Component {
                 </Container>
             </div>
         )
-    }
+}
+
+Search.propTypes = {
+    searchUsers: Proptypes.func.isRequired,
+    clearUsers: Proptypes.func.isRequired,
+    showClear: Proptypes.bool.isRequired,
+    setAlert: Proptypes.func.isRequired
 }
 
 export default Search;
