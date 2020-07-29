@@ -5,18 +5,19 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import GithubContext from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/alertContext';
 
 import './Search.css';
-import Proptypes from 'prop-types';
 
-const Search =({ showClear, clearUsers, setAlert}) => {
+const Search =() => {
     const githubContext = useContext(GithubContext);
+    const alertContext = useContext(AlertContext);    
     const [text, setText] = useState('');
 
     const onSubmit = (e) => {
         e.preventDefault();
         if (text === '') {
-            setAlert('Please enter name', 'light')
+            alertContext.setAlert('Please enter name', 'light')
         } else {
             githubContext.searchUsers(text);
             setText('');
@@ -36,7 +37,7 @@ const Search =({ showClear, clearUsers, setAlert}) => {
                                 <Form.Control id="inline" type="text" name="text"
                                     placeholder="Search Users..." value={text} onChange={onChange} />
                                 <Button id="search-button" variant="dark" type="submit" block>Search</Button>
-                                {showClear && <Button id="clear-button" variant="light" type="submit" onClick={clearUsers} block>Clear</Button>}
+                                {githubContext.users.length > 0 && <Button id="clear-button" variant="light" type="submit" onClick={githubContext.clearUsers} block>Clear</Button>}
                             </Form>
                         </Col>
                         <Col md={4}></Col>
@@ -44,13 +45,6 @@ const Search =({ showClear, clearUsers, setAlert}) => {
                 </Container>
             </div>
         )
-}
-
-Search.propTypes = {
-    
-    clearUsers: Proptypes.func.isRequired,
-    showClear: Proptypes.bool.isRequired,
-    setAlert: Proptypes.func.isRequired
 }
 
 export default Search;
