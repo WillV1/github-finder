@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import Navigation from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import Alert from './components/layout/Alert';
@@ -17,7 +17,7 @@ const App = () => {
     return (
       <GithubState>
       <AlertState>
-      <Router>
+      <HashRouter basename='/'>
         <div>
           <Navigation />
           <Container>
@@ -30,7 +30,7 @@ const App = () => {
             </Switch>
           </Container>
         </div>
-      </Router>
+      </HashRouter>
       </AlertState>
       </GithubState>
     );
